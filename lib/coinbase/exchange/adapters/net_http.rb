@@ -7,7 +7,9 @@ module Coinbase
         @conn = Net::HTTP.new(@api_uri.host, @api_uri.port)
         @conn.use_ssl = true if @api_uri.scheme == 'https'
         @conn.cert_store = self.class.whitelisted_certificates
-        @conn.ssl_version = :TLSv1
+        @conn.ssl_version = :TLSv1_2
+        #temporary hack fix
+        @conn.verify_mode = OpenSSL::SSL::VERIFY_NONE
       end
 
       private
